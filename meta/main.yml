@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: Robert de Bock
-  namespace: robertdebock
+  author: Michael Buluma
+  namespace: buluma
   role_name: vault
   description: Install, configure, initialize and unseal Hashicorp Vault.
   license: Apache-2.0
