@@ -4,5 +4,5 @@
 #
 repository:
   description: Install, configure, initialize and unseal Hashicorp Vault.
-  homepage: https://buluma.co.ke/
-  topics: vault, ansible, molecule, tox, playbook, hacktoberfest
+  homepage: https://buluma.github.io/
+  topics: vault, hashicorp, ansible, molecule, tox, playbook, hacktoberfest

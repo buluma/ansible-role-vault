@@ -1,7 +1,6 @@
 ---
 roles:
-  - name: robertdebock.bootstrap
-  - name: robertdebock.core_dependencies
-  - name: robertdebock.hashicorp
+  - name: buluma.bootstrap
+  - name: buluma.core_dependencies
+  - name: buluma.hashicorp
 collections:
-  - name: community.general

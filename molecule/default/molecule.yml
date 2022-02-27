@@ -6,6 +6,7 @@ dependency:
   name: galaxy
   options:
     role-file: requirements.yml
+    requirements-file: requirements.yml
 lint: |
   set -e
   yamllint .
@@ -13,8 +14,8 @@ lint: |
 driver:
   name: docker
 platforms:
-  - name: "vault-${image:-fedora}-${tag:-latest}${TOX_ENVNAME}"
-    image: "${namespace:-robertdebock}/${image:-fedora}:${tag:-latest}"
+  - name: "vault-${image:-docker-ubuntu-systemd}-${tag:-latest}${TOX_ENVNAME}"
+    image: "${namespace:-buluma}/${image:-docker-ubuntu-systemd}:${tag:-latest}"
     command: /sbin/init
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

@@ -5,8 +5,6 @@
   gather_facts: no
 
   roles:
-    - role: robertdebock.bootstrap
-    - role: robertdebock.core_dependencies
-    - role: robertdebock.hashicorp
-      hashicorp_products:
-        - name: vault
+    - role: buluma.bootstrap
+    - role: buluma.core_dependencies
+    - role: buluma.hashicorp

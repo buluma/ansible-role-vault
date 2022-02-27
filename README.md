@@ -4,11 +4,11 @@ Install, configure, initialize and unseal Hashicorp Vault.
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
-|[![github](https://github.com/robertdebock/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vault/actions)|[![gitlab](https://gitlab.com/robertdebock/ansible-role-vault/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-vault)|[![quality](https://img.shields.io/ansible/quality/50255)](https://galaxy.ansible.com/buluma/vault)|[![downloads](https://img.shields.io/ansible/role/d/50255)](https://galaxy.ansible.com/buluma/vault)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/releases/)|
+|[![github](https://github.com/buluma/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-vault/actions)|[![gitlab](https://gitlab.com/buluma/ansible-role-vault/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-vault)|[![quality](https://img.shields.io/ansible/quality/55857)](https://galaxy.ansible.com/buluma/vault)|[![downloads](https://img.shields.io/ansible/role/d/55857)](https://galaxy.ansible.com/buluma/vault)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
-This example is taken from `molecule/resources/converge.yml` and is tested on each push, pull request and release.
+This example is taken from `molecule/default/converge.yml` and is tested on each push, pull request and release.
 ```yaml
 ---
 - name: converge
@@ -19,6 +19,7 @@ This example is taken from `molecule/resources/converge.yml` and is tested on ea
   roles:
     - role: buluma.vault
       vault_show_unseal_information: yes
+      vault_store_root_token: yes
       vault_make_backup: yes
       vault_kv_secrets:
         - name: my-secret
@@ -27,7 +28,7 @@ This example is taken from `molecule/resources/converge.yml` and is tested on ea
             zip: zap
 ```
 
-The machine needs to be prepared in CI this is done using `molecule/resources/prepare.yml`:
+The machine needs to be prepared. In CI this is done using `molecule/default/prepare.yml`:
 ```yaml
 ---
 - name: prepare
@@ -36,21 +37,29 @@ The machine needs to be prepared in CI this is done using `molecule/resources/pr
   gather_facts: no
 
   roles:
-    - role: robertdebock.bootstrap
-    - role: robertdebock.core_dependencies
-    - role: robertdebock.hashicorp
-      hashicorp_products:
-        - name: vault
+    - role: buluma.bootstrap
+    - role: buluma.core_dependencies
+    - role: buluma.hashicorp
 ```
 
-Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
 
 ## [Role Variables](#role-variables)
 
-These variables are set in `defaults/main.yml`:
+The default values for the variables are set in `defaults/main.yml`:
 ```yaml
 ---
 # defaults file for vault
+
+# Configure some general parameters
+vault_max_lease_ttl: "10h"
+vault_default_lease_ttl: "10h"
+
+# Set the owner and group of the Vault installation. This user and group
+# should exist before running this role. The service file (vault.service)
+# also refers to a user, `vault` by default. When using another value,
+# please also update the service file.
+vault_owner: vault
+vault_group: vault
 
 # Configure clustering.
 vault_disable_clustering: "false"
@@ -78,9 +87,11 @@ vault_storages:
 # Where vault should listen on.
 vault_listeners:
   - name: tcp
-    address: 127.0.0.1:8200
-    cluster_address: 127.0.0.1:8201
+    address: "127.0.0.1:8200"
+    cluster_address: "127.0.0.1:8201"
     tls_disable: "true"
+    tls_cert_file: "fullchain.pem"
+    tls_key_file: "privkey.pem"
 
 # Have the web ui be made available.
 vault_ui: "true"
@@ -109,7 +120,7 @@ vault_make_backup: no
 
 # Where should backups be saved? A full path, including file, for example:
 # vault_backup_path: /tmp/my_backup.yml
-vault_backup_path: "/root/vault-raft_{{ ansible_date_time.date}}-{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}.snapshot"
+vault_backup_path: "/root/vault-raft_{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}.snapshot"
 
 # To provision resources, a namespace can be set.
 # vault_namespace: ""
@@ -126,27 +137,38 @@ vault_kv_delete_version_after: 3h25m19s
 #     data:
 #       foo: bar
 #       zip: zap
+
+# The license is required for Vault enterprise. You can use a trail license:
+# https://www.hashicorp.com/products/vault/trial
+# vault_license: "PLEASE_DOWNLOAD_ONE_YOURSELF"
+
+# Set the log_level. Either "trace", "debug", "info", "warn" or "err".
+vault_log_level: "info"
+
+# You can store the root token in a file to make using Vault easier.
+vault_store_root_token: no
 ```
 
 ## [Requirements](#requirements)
 
-- pip packages listed in [requirements.txt](https://github.com/buluma/ansible-role-vault/blob/master/requirements.txt).
+- pip packages listed in [requirements.txt](https://github.com/buluma/ansible-role-vault/blob/main/requirements.txt).
 
-## [Status of requirements](#status-of-requirements)
+## [Status of used roles](#status-of-requirements)
 
-The following roles are used to prepare a system. You may choose to prepare your system in another way, I have tested these roles as well.
+The following roles are used to prepare a system. You can prepare your system in another way.
 
 | Requirement | GitHub | GitLab |
 |-------------|--------|--------|
-|[robertdebock.bootstrap](https://galaxy.ansible.com/robertdebock/bootstrap)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-bootstrap/actions)|[![Build Status GitLab ](https://gitlab.com/robertdebock/ansible-role-bootstrap/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-bootstrap)|
-|[robertdebock.core_dependencies](https://galaxy.ansible.com/robertdebock/core_dependencies)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-core_dependencies/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-core_dependencies/actions)|[![Build Status GitLab ](https://gitlab.com/robertdebock/ansible-role-core_dependencies/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-core_dependencies)|
-|[robertdebock.hashicorp](https://galaxy.ansible.com/robertdebock/hashicorp)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-hashicorp/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-hashicorp/actions)|[![Build Status GitLab ](https://gitlab.com/robertdebock/ansible-role-hashicorp/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-hashicorp)|
+|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-bootstrap/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-bootstrap)|
+|[buluma.core_dependencies](https://galaxy.ansible.com/buluma/core_dependencies)|[![Build Status GitHub](https://github.com/buluma/ansible-role-core_dependencies/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-core_dependencies/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-core_dependencies/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-core_dependencies)|
+|[buluma.hashicorp](https://galaxy.ansible.com/buluma/hashicorp)|[![Build Status GitHub](https://github.com/buluma/ansible-role-hashicorp/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-hashicorp/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-hashicorp/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-hashicorp)|
 
 ## [Context](#context)
 
 This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://buluma.co.ke/) for further information.
 
 Here is an overview of related roles:
+
 ![dependencies](https://raw.githubusercontent.com/buluma/ansible-role-vault/png/requirements.png "Dependencies")
 
 ## [Compatibility](#compatibility)
@@ -155,10 +177,10 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 
 |container|tags|
 |---------|----|
+|debian|bullseye|
 |el|8|
-|debian|buster|
-|fedora|33, 34|
-|ubuntu|bionic, focal|
+|fedora|34, 35|
+|ubuntu|all|
 
 The minimum version of Ansible required is 2.10, tests have been done to:
 
@@ -174,7 +196,6 @@ If you find issues, please register them in [GitHub](https://github.com/buluma/a
 
 Apache-2.0
 
-
 ## [Author Information](#author-information)
 
-[Michael Buluma](https://buluma.co.ke/)
+[Michael Buluma](https://buluma.github.io/)

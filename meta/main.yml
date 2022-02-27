@@ -9,22 +9,22 @@ galaxy_info:
   min_ansible_version: "2.10"
 
   platforms:
+    - name: Debian
+      versions:
+        - bullseye
     - name: EL
       versions:
         - 8
-    - name: Debian
-      versions:
-        - buster
     - name: Fedora
       versions:
-        - 33
         - 34
+        - 35
     - name: Ubuntu
       versions:
-        - bionic
-        - focal
+        - all
 
   galaxy_tags:
     - vault
+    - hashicorp
 
 dependencies: []
