@@ -11,8 +11,6 @@ variables:
 molecule:
   script:
     - image=${image} tag=${tag} molecule test
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "master"
   retry: 1
   parallel:
     matrix:
@@ -54,34 +52,11 @@ testing:
       - image: "docker-ubuntu-systemd"
         tag: "focal"
 
-role_testing:
-  script:
-    - image=${image} tag=${tag} ansible-galaxy install buluma.vault
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "testing"
-  retry: 1
-  parallel:
-    matrix:
-      - image: "debian-systemd"
-        tag: "latest"
-      - image: "enterpriselinux"
-        tag: "latest"
-      - image: "fedora-systemd"
-        tag: "34"
-      - image: "fedora-systemd"
-        tag: "latest"
-      - image: "docker-ubuntu-systemd"
-        tag: "latest"
-      - image: "docker-ubuntu-systemd"
-        tag: "bionic"
-      - image: "docker-ubuntu-systemd"
-        tag: "focal"
-
 galaxy:
   script:
     - ansible-galaxy role info buluma.vault
 
-role_testing_live:
+role_testing:
   script:
     - image=${image} tag=${tag} ansible-galaxy install buluma.vault
   retry: 1
