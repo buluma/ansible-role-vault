@@ -2,22 +2,25 @@
 galaxy_info:
   author: buluma
   role_name: vault
-  description: Install, configure, initialize and unseal Hashicorp Vault.
+  description: Install Hashicorp Vault, either a package or a binary.
   license: Apache-2.0
   company: ShadowNet
-  min_ansible_version: "2.10"
+  min_ansible_version: "2.12"
 
   platforms:
+    - name: Amazon
+      versions:
+        - Candidate
     - name: Debian
       versions:
-        - bullseye
+        - all
     - name: EL
       versions:
-        - "8"
+        - all
     - name: Fedora
       versions:
-        - "35"
         - "36"
+        - "37"
     - name: Ubuntu
       versions:
         - all

@@ -1,0 +1,151 @@
+---
+
+- name: binary | Create Vault group
+  ansible.builtin.group:
+    name: "{{ vault_group }}"
+    system: yes
+
+- name: binary | Create Vault user
+  ansible.builtin.user:
+    name: "{{ vault_user }}"
+    create_home: no
+    system: yes
+    shell: "{{ vault_user_shell }}"
+    group: "{{ vault_group }}"
+
+- name: binary | Create Vault download directory
+  ansible.builtin.file:
+    path: "{{ vault_download_path }}"
+    state: directory
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: "0755"
+
+- name: binary | Download Vault binary
+  ansible.builtin.unarchive:
+    src: "https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_linux_{{ vault_architecture }}.zip"
+    dest: "{{ vault_download_path }}"
+    creates: "{{ vault_download_path }}/vault"
+    owner: root
+    group: root
+    mode: "0644"
+    remote_src: yes
+
+- name: binary | Check if vault_path exists
+  ansible.builtin.stat:
+    path: "{{ vault_path }}"
+  register: vault_check_path
+
+- name: binary | Create vault_path if it does not exists
+  ansible.builtin.file:
+    path: "{{ vault_path }}"
+    state: directory
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: "0755"
+  when:
+    - not vault_check_path.stat.exists
+    - vault_path != ""
+
+- name: binary | Create directory in vault_path
+  ansible.builtin.file:
+    path: "{{ item.name }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop: "{{ vault_directories }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: binary | Create data directory
+  ansible.builtin.file:
+    path: "{{ item.name }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop: "{{ vault_data_directories }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: binary | Generate TLS key and certificate
+  ansible.builtin.command:
+    cmd: openssl req -out tls.crt -new -keyout tls.key -newkey rsa:4096 -nodes -sha256 -x509 -subj "/O=HashiCorp/CN=Vault" -days 1095
+    chdir: /opt/vault/tls
+    creates: /opt/vault/tls/tls.key
+  notify:
+    - Restart vault
+
+- name: binary | Set ownership of tls material
+  ansible.builtin.file:
+    path: "{{ item.name }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop: "{{ vault_tls_files }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: binary | Copy Vault binary
+  ansible.builtin.copy:
+    src: "{{ vault_download_path }}/vault"
+    dest: "{{ vault_path }}/usr/bin/vault"
+    owner: root
+    group: root
+    mode: "0755"
+    remote_src: yes
+  notify:
+    - Restart vault
+
+- name: binary | Set cap_ipc_lock=ep on /usr/bin/vault
+  community.general.capabilities:
+    path: "{{ vault_path }}/usr/bin/vault"
+    capability: cap_ipc_lock+ep
+  changed_when: no
+
+- name: binary | Touch vault.env
+  ansible.builtin.file:
+    path: "{{ vault_path }}/etc/vault.d/vault.env"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: "0644"
+    state: touch
+    modification_time: preserve
+    access_time: preserve
+  notify:
+    - Restart vault
+
+- name: binary | Create /usr/lib/systemd/system
+  ansible.builtin.file:
+    path: /usr/lib/systemd/system
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: binary | Copy Vault service file
+  ansible.builtin.template:
+    src: vault.service.j2
+    dest: "/usr/lib/systemd/system/vault.service"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Daemon reload
+  when:
+    - ansible_service_mgr == "systemd"
+
+- name: binary | Copy vault configuration
+  ansible.builtin.copy:
+    src: vault.hcl
+    dest: "{{ vault_path }}/etc/vault.d/vault.hcl"
+    owner: root
+    group: root
+    mode: "0644"
+    force: no
+  notify:
+    - Restart vault
+
+- name: binary | Flush handlers
+  ansible.builtin.meta: flush_handlers
