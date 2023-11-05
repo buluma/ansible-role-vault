@@ -2,9 +2,9 @@
 
 Install Hashicorp Vault, either a package or a binary.
 
-|GitHub|GitLab|Quality|Downloads|Version|Issues|Pull Requests|
-|------|------|-------|---------|-------|------|-------------|
-|[![github](https://github.com/buluma/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-vault/actions)|[![gitlab](https://gitlab.com/shadowwalker/ansible-role-vault/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-vault)|[![quality](https://img.shields.io/ansible/quality/55857)](https://galaxy.ansible.com/buluma/vault)|[![downloads](https://img.shields.io/ansible/role/d/55857)](https://galaxy.ansible.com/buluma/vault)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/pulls/)|
+|GitHub|GitLab|Downloads|Version|Issues|Pull Requests|
+|------|------|-------|-------|------|-------------|
+|[![github](https://github.com/buluma/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-vault/actions)|[![gitlab](https://gitlab.com/shadowwalker/ansible-role-vault/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-vault)|[![downloads](https://img.shields.io/ansible/role/d/4877)](https://galaxy.ansible.com/buluma/vault)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-vault.svg)](https://github.com/buluma/ansible-role-vault/pulls/)|
 
 ## [Example Playbook](#example-playbook)
 
