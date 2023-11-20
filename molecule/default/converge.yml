@@ -1,16 +1,8 @@
 ---
-- name: converge
+- name: Converge
   hosts: all
   become: yes
   gather_facts: yes
 
   roles:
     - role: ansible-role-vault
-      vault_show_unseal_information: yes
-      vault_store_root_token: yes
-      vault_make_backup: yes
-      vault_kv_secrets:
-        - name: my-secret
-          data:
-            foo: bar
-            zip: zap

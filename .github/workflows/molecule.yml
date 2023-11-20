@@ -56,17 +56,15 @@ jobs:
           - image: "enterpriselinux"
             tag: "latest"
           - image: "fedora-systemd"
-            tag: "36"
-          - image: "fedora-systemd"
             tag: "37"
+          - image: "fedora-systemd"
+            tag: "latest"
           - image: "docker-ubuntu-systemd"
             tag: "latest"
           - image: "docker-ubuntu-systemd"
             tag: "focal"
           - image: "docker-ubuntu-systemd"
             tag: "bionic"
-          - image: "docker-ubuntu-systemd"
-            tag: "lunar"
     steps:
       - name: checkout
         uses: actions/checkout@v4

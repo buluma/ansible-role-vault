@@ -12,28 +12,20 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
 ```yaml
 ---
-- name: converge
+- name: Converge
   hosts: all
   become: yes
   gather_facts: yes
 
   roles:
     - role: buluma.vault
-      vault_show_unseal_information: yes
-      vault_store_root_token: yes
-      vault_make_backup: yes
-      vault_kv_secrets:
-        - name: my-secret
-          data:
-            foo: bar
-            zip: zap
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-vault/blob/master/molecule/default/prepare.yml):
 
 ```yaml
 ---
-- name: prepare
+- name: Prepare
   hosts: all
   become: yes
   gather_facts: no
@@ -61,7 +53,7 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 vault_type: oss
 
 # Set the version of the package to install.
-vault_version: "1.12.3"
+vault_version: "1.15.2"
 
 # For package installations, a "release" is required. The package would for example be called `vault-1.12.2-1`.
 vault_package_release: "1"
@@ -119,7 +111,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 |[Amazon](https://hub.docker.com/repository/docker/buluma/amazonlinux/general)|Candidate|
 |[Debian](https://hub.docker.com/repository/docker/buluma/debian/general)|all|
 |[EL](https://hub.docker.com/repository/docker/buluma/enterpriselinux/general)|all|
-|[Fedora](https://hub.docker.com/repository/docker/buluma/fedora/general)|36, 37|
+|[Fedora](https://hub.docker.com/repository/docker/buluma/fedora/general)|37, 38|
 |[Ubuntu](https://hub.docker.com/repository/docker/buluma/ubuntu/general)|all|
 
 The minimum version of Ansible required is 2.12, tests have been done to:
