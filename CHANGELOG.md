@@ -9,6 +9,11 @@
 - Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#10](https://github.com/buluma/ansible-role-vault/issues/10)
 - Update action [\#9](https://github.com/buluma/ansible-role-vault/issues/9)
 
+**Merged pull requests:**
+
+- Bump buluma/gitlab-mirror-ci-action from 1.0.6 to 1.0.7 [\#8](https://github.com/buluma/ansible-role-vault/pull/8) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump act10ns/slack from 1 to 2 [\#6](https://github.com/buluma/ansible-role-vault/pull/6) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [1.0.5](https://github.com/buluma/ansible-role-vault/tree/1.0.5) (2022-07-08)
 
 [Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.0.4...1.0.5)
