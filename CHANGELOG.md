@@ -6,6 +6,9 @@
 
 **Closed issues:**
 
+- Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#13](https://github.com/buluma/ansible-role-vault/issues/13)
+- Update action [\#12](https://github.com/buluma/ansible-role-vault/issues/12)
+- rebuild action [\#11](https://github.com/buluma/ansible-role-vault/issues/11)
 - Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#10](https://github.com/buluma/ansible-role-vault/issues/10)
 - Update action [\#9](https://github.com/buluma/ansible-role-vault/issues/9)
 
