@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-vault/tree/HEAD)
+## [1.0.6](https://github.com/buluma/ansible-role-vault/tree/1.0.6) (2023-12-09)
 
-[Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.0.5...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.0.5...1.0.6)
 
 **Closed issues:**
 
