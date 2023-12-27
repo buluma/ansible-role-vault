@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.7](https://github.com/buluma/ansible-role-vault/tree/1.0.7) (2023-12-25)
+
+[Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.0.6...1.0.7)
+
 ## [1.0.6](https://github.com/buluma/ansible-role-vault/tree/1.0.6) (2023-12-09)
 
 [Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.0.5...1.0.6)
