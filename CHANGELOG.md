@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-vault/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.0.7...HEAD)
+
+**Merged pull requests:**
+
+- Bump actions/checkout from 3 to 4 [\#15](https://github.com/buluma/ansible-role-vault/pull/15) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [1.0.7](https://github.com/buluma/ansible-role-vault/tree/1.0.7) (2023-12-25)
 
 [Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.0.6...1.0.7)
