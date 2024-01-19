@@ -60,7 +60,7 @@ jobs:
           - image: "enterpriselinux"
             tag: "latest"
           - image: "fedora-systemd"
-            tag: "37"
+            tag: "latest"
           - image: "fedora-systemd"
             tag: "38"
           - image: "docker-ubuntu-systemd"
