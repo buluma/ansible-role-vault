@@ -53,8 +53,6 @@ jobs:
           - image: "debian-systemd"
             tag: "bullseye"
           - image: "enterpriselinux"
-            tag: "7"
-          - image: "enterpriselinux"
             tag: "8"
           - image: "enterpriselinux"
             tag: "latest"
