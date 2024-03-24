@@ -14,11 +14,12 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 ---
 - name: Converge
   hosts: all
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
 
   roles:
     - role: buluma.vault
+      vault_hardening_disable_swap: false
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-vault/blob/master/molecule/default/prepare.yml):
@@ -27,8 +28,8 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 ---
 - name: Prepare
   hosts: all
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   roles:
     - role: buluma.bootstrap
@@ -53,7 +54,7 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 vault_type: oss
 
 # Set the version of the package to install.
-vault_version: "1.15.4"
+vault_version: "1.15.6"
 
 # For package installations, a "release" is required. The package would for example be called `vault-1.12.2-1`.
 vault_package_release: "1"
@@ -78,6 +79,33 @@ vault_user_shell: /bin/false
 
 # Where to store data. That's Raft data and TLS material.
 vault_data_directory: /opt/vault
+
+# Hardening advices to disable swap.
+vault_hardening_disable_swap: true
+
+# Hardening advices to disable core dumps.
+vault_hardening_disable_core_dumps: true
+
+# Hardening advices to disable shell command history.
+vault_hardening_disable_shell_command_history: true
+
+# Hardening advices to configure SELinux / AppArmor.
+vault_hardening_configure_selinux_apparmor: true
+
+# You can place variables that Vault listens to in this list.
+# For example:
+# vault_environment_settings:
+#   - name: VAULT_API_ADDR
+#     value: "http://127.0.0.1:8200"
+#   - name: VAULT_CLUSTER_ADDR
+#     value: "http://127.0.0.1:8201"
+#   - name: HTTP_PROXY
+#     value: "http://proxy.example.com:8080"
+#   - name: HTTPS_PROXY
+#     value: "https://proxy.example.com:8080"
+#   - name: NO_PROXY
+#     value: "*.example.com,1.2.3.4:80,1.2.3.4/8"
+vault_environment_settings: []
 ```
 
 ## [Requirements](#requirements)
@@ -108,11 +136,11 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 
 |container|tags|
 |---------|----|
-|[Amazon](https://hub.docker.com/repository/docker/buluma/amazonlinux/general)|Candidate|
-|[Debian](https://hub.docker.com/repository/docker/buluma/debian/general)|all|
-|[EL](https://hub.docker.com/repository/docker/buluma/enterpriselinux/general)|all|
-|[Fedora](https://hub.docker.com/repository/docker/buluma/fedora/general)|38, 39|
-|[Ubuntu](https://hub.docker.com/repository/docker/buluma/ubuntu/general)|all|
+|[Amazon](https://hub.docker.com/r/buluma/amazonlinux)|Candidate|
+|[Debian](https://hub.docker.com/r/buluma/debian)|all|
+|[EL](https://hub.docker.com/r/buluma/enterpriselinux)|all|
+|[Fedora](https://hub.docker.com/r/buluma/fedora)|38, 39|
+|[Ubuntu](https://hub.docker.com/r/buluma/ubuntu)|all|
 
 The minimum version of Ansible required is 2.12, tests have been done to:
 

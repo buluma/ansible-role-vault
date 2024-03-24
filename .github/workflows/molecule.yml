@@ -52,21 +52,11 @@ jobs:
             tag: "latest"
           - image: "debian-systemd"
             tag: "bullseye"
-          - image: "oraclelinux"
+          - image: "enterpriselinux"
             tag: "7"
-          - image: "oraclelinux"
+          - image: "enterpriselinux"
             tag: "8"
-          - image: "oraclelinux"
-            tag: "latest"
-          - iame: "rockylinux"
-            tag: "7"
-          - iame: "rockylinux"
-            tag: "8"
-          - iame: "enterpriselinux"
-            tag: "7"
-          - iame: "enterpriselinux"
-            tag: "8"
-          - iame: "enterpriselinux"
+          - image: "enterpriselinux"
             tag: "latest"
           - image: "fedora-systemd"
             tag: "38"
@@ -99,7 +89,7 @@ jobs:
       - uses: "actions/checkout@master"
       - name: Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@v1
+        uses: dependabot/fetch-metadata@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Approve a PR
