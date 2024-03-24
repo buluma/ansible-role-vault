@@ -1,10 +1,63 @@
 ---
 - name: Verify
   hosts: all
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
+
+  vars:
+    vault_root_token: root
 
   tasks:
     - name: Try vault --version
       ansible.builtin.command:
         cmd: vault --version
+      changed_when: false
+
+    - name: Stop vault service
+      ansible.builtin.service:
+        name: vault
+        state: stopped
+
+    - name: Start vault server (dev)
+      ansible.builtin.command:
+        cmd: vault server -dev -dev-root-token-id="{{ vault_root_token }}"
+      async: 180
+      poll: 0
+      changed_when: true
+      notify:
+        - Enable KV secrets engine
+        - Write a secret to the KV secrets engine
+        - Read the secret from the KV secrets engine
+        - Check if the read secret is correct
+
+  handlers:
+    - name: Enable KV secrets engine
+      ansible.builtin.command:
+        cmd: vault secrets enable -path=kv kv
+      changed_when: true
+      environment:
+        VAULT_ADDR: "http://localhost:8200"
+        VAULT_TOKEN: "{{ vault_root_token }}"
+
+    - name: Write a secret to the KV secrets engine
+      ansible.builtin.command:
+        cmd: vault kv put kv/my-secret my-value=s3cr3t
+      changed_when: true
+      environment:
+        VAULT_ADDR: "http://localhost:8200"
+        VAULT_TOKEN: "{{ vault_root_token }}"
+
+    - name: Read the secret from the KV secrets engine
+      ansible.builtin.command:
+        cmd: vault kv get kv/my-secret
+      register: vault_secret
+      changed_when: true
+      environment:
+        VAULT_ADDR: "http://localhost:8200"
+        VAULT_TOKEN: "{{ vault_root_token }}"
+
+    - name: Check if the read secret is correct
+      ansible.builtin.assert:
+        that:
+          - vault_secret.stdout.find('s3cr3t') != -1
+        quiet: true
