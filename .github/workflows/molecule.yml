@@ -66,6 +66,10 @@ jobs:
             tag: "focal"
           - image: "docker-ubuntu-systemd"
             tag: "bionic"
+          - image: "docker-ubuntu-systemd"
+            tag: "lunar"
+          - image: "docker-ubuntu-systemd"
+            tag: "noble"
     steps:
       - name: Checkout Role
         uses: actions/checkout@v4
