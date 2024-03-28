@@ -24,7 +24,9 @@ galaxy_info:
         - "39"
     - name: Ubuntu
       versions:
-        - all
+        - focal
+        - bionic
+        - jammy
 
   galaxy_tags:
     - vault

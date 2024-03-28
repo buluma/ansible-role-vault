@@ -140,7 +140,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 |[Debian](https://hub.docker.com/r/buluma/debian)|all|
 |[EL](https://hub.docker.com/r/buluma/enterpriselinux)|8, 9|
 |[Fedora](https://hub.docker.com/r/buluma/fedora)|38, 39|
-|[Ubuntu](https://hub.docker.com/r/buluma/ubuntu)|all|
+|[Ubuntu](https://hub.docker.com/r/buluma/ubuntu)|focal, bionic, jammy|
 
 The minimum version of Ansible required is 2.12, tests have been done to:
 
