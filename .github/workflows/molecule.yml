@@ -46,8 +46,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - image: "amazonlinux"
-            tag: "latest"
+          - image: "docker-molecule-images"
+            tag: "amazonlinux2023"
           - image: "docker-molecule-images"
             tag: "buster"
           - image: "docker-molecule-images"
