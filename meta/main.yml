@@ -1,36 +1,28 @@
----
 galaxy_info:
   author: buluma
   role_name: vault
   description: Install Hashicorp Vault, either a package or a binary.
   license: Apache-2.0
   company: ShadowNet
-  min_ansible_version: "2.12"
-
+  min_ansible_version: '2.12'
   platforms:
-    - name: Amazon
-      versions:
-        - Candidate
-    - name: Debian
-      versions:
-        - all
-    - name: EL
-      versions:  # Sunsetting El7
-        - "8"
-        - "9"
-    - name: Fedora
-      versions:  # Will never work on "all", as rawhide is not supported by HC.
-        - "39"
-        - "40"
-    - name: Ubuntu
-      versions:
-        - focal
-        - noble
-        - jammy
-
+  - name: Amazon
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: EL
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
   galaxy_tags:
-    - vault
-    - hashicorp
-    - security
-
+  - vault
+  - hashicorp
+  - security
 dependencies: []
