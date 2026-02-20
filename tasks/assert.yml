@@ -1,5 +1,4 @@
 ---
-
 - name: assert | Test vault_type
   ansible.builtin.assert:
     that:

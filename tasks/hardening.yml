@@ -1,5 +1,4 @@
 ---
-
 - name: hardening | Disable swap
   when:
     - vault_hardening_disable_swap
@@ -23,11 +22,11 @@
     limit_item: "{{ item.limit_item }}"
     value: "{{ item.value }}"
   loop:
-    - domain: '*'
+    - domain: "*"
       limit_type: hard
       limit_item: core
       value: 0
-    - domain: '*'
+    - domain: "*"
       limit_type: soft
       limit_item: core
       value: 0
@@ -41,7 +40,7 @@
     dest: /etc/profile.d/vault.sh
     content: |
       export HISTIGNORE="&:vault*"
-    mode: '0644'
+    mode: "0644"
     owner: root
     group: root
   when:

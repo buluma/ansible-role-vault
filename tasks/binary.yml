@@ -1,5 +1,4 @@
 ---
-
 - name: binary | Create Vault group
   ansible.builtin.group:
     name: "{{ vault_group }}"
