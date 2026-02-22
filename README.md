@@ -11,30 +11,26 @@ Install Hashicorp Vault, either a package or a binary.
 This example is taken from [`molecule/default/converge.yml`](https://github.com/buluma/ansible-role-vault/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
 
 ```yaml
----
-- name: Converge
-  hosts: all
-  become: true
+- become: true
   gather_facts: true
-
+  hosts: all
+  name: Converge
   roles:
-    - role: buluma.vault
-      vault_hardening_disable_swap: false
+  - role: buluma.vault
+    vault_hardening_disable_swap: false
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-vault/blob/master/molecule/default/prepare.yml):
 
 ```yaml
----
-- name: Prepare
-  hosts: all
-  become: true
+- become: true
   gather_facts: false
-
+  hosts: all
+  name: Prepare
   roles:
-    - role: buluma.bootstrap
-    - role: buluma.core_dependencies
-    - role: buluma.hashicorp
+  - role: buluma.bootstrap
+  - role: buluma.core_dependencies
+  - role: buluma.hashicorp
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -44,68 +40,21 @@ Also see a [full explanation and example](https://buluma.github.io/how-to-use-th
 The default values for the variables are set in [`defaults/main.yml`](https://github.com/buluma/ansible-role-vault/blob/master/defaults/main.yml):
 
 ```yaml
----
-# defaults file for vault
-
-# Select the type of Vault to install. Either "oss", "ent" or "hsm".
-# `oss` means Open Source.
-# `ent` means Enterprise.
-# `hsm` means Enterprise with HSM support.
-vault_type: oss
-
-# Set the version of the package to install.
-vault_version: "1.15.6"
-
-# For package installations, a "release" is required. The package would for example be called `vault-1.12.2-1`.
-vault_package_release: "1"
-
-# Select the way to intall Vault. Either "package" or "binary".
-vault_installation_method: "package"
-
-# When `vault_installation_method` is set to "binary", set the path where to (temporarily) download Vault.
-vault_download_path: "/tmp/vault-{{ vault_version }}"
-
-# When `vault_installation_method` is set to "binary", set the (base) path where to install Vault. This can be "" or "/opt" for example.
-vault_path: ""
-
-# When `vault_installation_method` is set to "binary", set the user Vault will run under. The user "root" is not allowed.
-vault_user: vault
-
-# When `vault_installation_method` is set to "binary", set the group Vault will run under. The group "root" is not allowed.
-vault_group: vault
-
-# When `vault_installation_method` is set to "binary", set the shell for the vault_user.
-vault_user_shell: /bin/false
-
-# Where to store data. That's Raft data and TLS material.
 vault_data_directory: /opt/vault
-
-# Hardening advices to disable swap.
-vault_hardening_disable_swap: true
-
-# Hardening advices to disable core dumps.
-vault_hardening_disable_core_dumps: true
-
-# Hardening advices to disable shell command history.
-vault_hardening_disable_shell_command_history: true
-
-# Hardening advices to configure SELinux / AppArmor.
-vault_hardening_configure_selinux_apparmor: true
-
-# You can place variables that Vault listens to in this list.
-# For example:
-# vault_environment_settings:
-#   - name: VAULT_API_ADDR
-#     value: "http://127.0.0.1:8200"
-#   - name: VAULT_CLUSTER_ADDR
-#     value: "http://127.0.0.1:8201"
-#   - name: HTTP_PROXY
-#     value: "http://proxy.example.com:8080"
-#   - name: HTTPS_PROXY
-#     value: "https://proxy.example.com:8080"
-#   - name: NO_PROXY
-#     value: "*.example.com,1.2.3.4:80,1.2.3.4/8"
+vault_download_path: /tmp/vault-{{ vault_version }}
 vault_environment_settings: []
+vault_group: vault
+vault_hardening_configure_selinux_apparmor: true
+vault_hardening_disable_core_dumps: true
+vault_hardening_disable_shell_command_history: true
+vault_hardening_disable_swap: true
+vault_installation_method: package
+vault_package_release: '1'
+vault_path: ''
+vault_type: oss
+vault_user: vault
+vault_user_shell: /bin/false
+vault_version: 1.15.6
 ```
 
 ## [Requirements](#requirements)
