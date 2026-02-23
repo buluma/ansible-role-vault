@@ -11,26 +11,28 @@ Install Hashicorp Vault, either a package or a binary.
 This example is taken from [`molecule/default/converge.yml`](https://github.com/buluma/ansible-role-vault/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
 
 ```yaml
-- become: true
-  gather_facts: true
-  hosts: all
-  name: Converge
-  roles:
-  - role: buluma.vault
-    vault_hardening_disable_swap: false
+---
+  - become: true
+    gather_facts: true
+    hosts: all
+    name: Converge
+    roles:
+      - role: buluma.vault
+        vault_hardening_disable_swap: false
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-vault/blob/master/molecule/default/prepare.yml):
 
 ```yaml
-- become: true
-  gather_facts: false
-  hosts: all
-  name: Prepare
-  roles:
-  - role: buluma.bootstrap
-  - role: buluma.core_dependencies
-  - role: buluma.hashicorp
+---
+  - become: true
+    gather_facts: false
+    hosts: all
+    name: Prepare
+    roles:
+      - role: buluma.bootstrap
+      - role: buluma.core_dependencies
+      - role: buluma.hashicorp
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -40,6 +42,7 @@ Also see a [full explanation and example](https://buluma.github.io/how-to-use-th
 The default values for the variables are set in [`defaults/main.yml`](https://github.com/buluma/ansible-role-vault/blob/master/defaults/main.yml):
 
 ```yaml
+---
 vault_data_directory: /opt/vault
 vault_download_path: /tmp/vault-{{ vault_version }}
 vault_environment_settings: []
@@ -49,8 +52,8 @@ vault_hardening_disable_core_dumps: true
 vault_hardening_disable_shell_command_history: true
 vault_hardening_disable_swap: true
 vault_installation_method: package
-vault_package_release: '1'
-vault_path: ''
+vault_package_release: "1"
+vault_path: ""
 vault_type: oss
 vault_user: vault
 vault_user_shell: /bin/false
