@@ -57,7 +57,7 @@ vault_path: ""
 vault_type: oss
 vault_user: vault
 vault_user_shell: /bin/false
-vault_version: 1.15.6
+vault_version: "1.15.6"
 ```
 
 ## [Requirements](#requirements)
@@ -109,3 +109,4 @@ If you find issues, please register them on [GitHub](https://github.com/buluma/a
 ## [Author Information](#author-information)
 
 [buluma](https://buluma.github.io/)
+
