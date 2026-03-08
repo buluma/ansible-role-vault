@@ -4,5 +4,5 @@
   hosts: all
   name: Converge
   roles:
-  - role: buluma.vault
-    vault_hardening_disable_swap: false
+    - role: buluma.vault
+      vault_hardening_disable_swap: false
