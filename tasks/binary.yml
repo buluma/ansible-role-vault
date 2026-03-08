@@ -67,6 +67,7 @@
     creates: "{{ vault_data_directory }}/tls/tls.key"
   notify:
     - Restart vault
+  # Separator for the pre-commit handler parser.
 - name: binary | Set ownership of tls material
   ansible.builtin.file:
     group: "{{ item.group }}"
@@ -86,6 +87,7 @@
     src: "{{ vault_download_path }}/vault"
   notify:
     - Restart vault
+  # Separator for the pre-commit handler parser.
 - name: binary | Set cap_ipc_lock=ep on /usr/bin/vault
   changed_when: false
   community.general.capabilities:
@@ -102,6 +104,7 @@
     state: touch
   notify:
     - Restart vault
+  # Separator for the pre-commit handler parser.
 - name: binary | Create /usr/lib/systemd/system
   ansible.builtin.file:
     group: root
@@ -118,6 +121,7 @@
     src: vault.service.j2
   notify:
     - Daemon reload
+  # Separator for the pre-commit handler parser.
   when:
     - ansible_service_mgr == "systemd"
 - name: binary | Copy vault configuration
@@ -130,5 +134,6 @@
     src: vault.hcl
   notify:
     - Restart vault
+  # Separator for the pre-commit handler parser.
 - name: binary | Flush handlers
   ansible.builtin.meta: flush_handlers
