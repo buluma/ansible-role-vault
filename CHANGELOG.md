@@ -1,5 +1,14 @@
 # Changelog
 
+## [26.6.0](https://github.com/buluma/ansible-role-vault/tree/26.6.0) (2026-06-14)
+
+[Full Changelog](https://github.com/buluma/ansible-role-vault/compare/24.3.31...26.6.0)
+
+**Merged pull requests:**
+
+- Bump ansible/ansible-lint from 26.1.1 to 26.2.0 [\#28](https://github.com/buluma/ansible-role-vault/pull/28) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump actions/checkout from 4 to 6 [\#27](https://github.com/buluma/ansible-role-vault/pull/27) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [24.3.31](https://github.com/buluma/ansible-role-vault/tree/24.3.31) (2024-03-29)
 
 [Full Changelog](https://github.com/buluma/ansible-role-vault/compare/1.2.0...24.3.31)
