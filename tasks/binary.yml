@@ -123,7 +123,7 @@
     - Daemon reload
   # Separator for the pre-commit handler parser.
   when:
-    - ansible_facts.service_mgr == "systemd"
+    - ansible_facts['service_mgr'] == "systemd"
 - name: binary | Copy vault configuration
   ansible.builtin.copy:
     dest: "{{ vault_path }}/etc/vault.d/vault.hcl"

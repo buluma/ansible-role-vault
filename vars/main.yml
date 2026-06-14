@@ -21,7 +21,7 @@ _vault_prerequisites:
 _vault_version_separator:
   apt: "="
   default: "-"
-vault_architecture: "{{ _vault_architecture_map[ansible_facts.architecture] }}"
+vault_architecture: "{{ _vault_architecture_map[ansible_facts['architecture']] }}"
 vault_data_directories:
   - group: "{{ vault_user }}"
     mode: "0755"
@@ -41,7 +41,7 @@ vault_directories:
     name: "{{ vault_path }}/usr/bin"
     owner: root
 vault_package: "{{ _vault_package[vault_type] }}"
-vault_prerequisites: "{{ _vault_prerequisites[ansible_facts.os_family] | default(_vault_prerequisites['default']) }}"
+vault_prerequisites: "{{ _vault_prerequisites[ansible_facts['os_family']] | default(_vault_prerequisites['default']) }}"
 vault_tls_files:
   - group: "{{ vault_user }}"
     mode: "0600"
@@ -55,4 +55,4 @@ vault_tls_files:
     mode: "0700"
     name: "{{ vault_data_directory }}/tls"
     owner: "{{ vault_user }}"
-vault_version_separator: "{{ _vault_version_separator[ansible_facts.pkg_mgr] | default(_vault_version_separator['default']) }}"
+vault_version_separator: "{{ _vault_version_separator[ansible_facts['pkg_mgr']] | default(_vault_version_separator['default']) }}"
