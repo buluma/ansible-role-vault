@@ -64,4 +64,4 @@
         cmd: aa-enforce /etc/apparmor.d/usr.bin.vault
       changed_when: true
       when:
-        - ansible_apparmor.status == "enabled"
+        - ansible_facts['apparmor']['status'] == "enabled"
