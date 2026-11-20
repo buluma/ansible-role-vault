@@ -87,7 +87,7 @@ vault_path: ""
 vault_type: oss
 vault_user: vault
 vault_user_shell: /bin/false
-vault_version: "2.2.1"
+vault_version: "2.2.2"
 ```
 
 ## [Requirements](#requirements)
